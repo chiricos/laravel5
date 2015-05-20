@@ -1,0 +1,38 @@
+php artisan migrate
+php artisan make:migration create_users_table --create="users"   /* crea de una vez el schema con el nombre de la tabla*/
+php artisan migrate:refresh  /* borra y crea todas la migraciones */
+php artisan migrate:reset
+php artisan list   /* lista los comandos */
+php artisan help comando   /* dice como se utiliza el comando por ejemplo php artisan help make:migrate */
+php artisan migrate:refresh --seed  /* refresca las migraciones y ademas crea los seeders */
+composer dump-autoload   /* permite cargar las cases que se han creado recientemente con la forma de map(mapeo)*/
+php artisan app:name Cms  /* cambia el nombre del namespace de app a cms esto sirve para hacer el modelo de negocio */
+php artisan make:model "nombredelmodelo o tabla" User
+php artisan rotue:list
+
+
+FLUENT
+
+$result= \DB::table('users')
+            ->select('users.*',
+                'user_profiles.id as profile_id',
+                'user_profiles.twitter')
+            ->where('first_name','<>','edward')//si no se coloca '<>' se da por entendido que es un igual
+            ->orderBy('first_name','ASC')
+            ->join('user_profiles','users.id','=','user_profiles.user_id') /* leftJoin permite ver los users que no tengan perfil*/
+            ->get();
+
+
+->orderBy(\DB::raw('RAND()')
+
+
+View::meke = view
+
+
+laravelcolective
+formyhtml
+http://laravelcollective.com/docs/5.0/html
+
+"require": {
+    "laravelcollective/html": "~5.0"
+}
