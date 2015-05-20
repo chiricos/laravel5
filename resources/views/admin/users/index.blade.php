@@ -10,6 +10,8 @@
                     <div class="panel-body">
                         <p>Hay {{$users->lastPage()}} paginas</p>
                         <p>Hay {{$users->total()}} registros</p>
+                        <p>Hay {{$users->count()}} registros</p>
+                        <p>Hay {!!$users->setPath('custom/url')!!} registros</p>
                         <table class="table table-bordered">
 
                             <tr>
