@@ -1,13 +1,21 @@
 <?php namespace laravel5\Http\Controllers\Admin;
 
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 use laravel5\Http\Requests;
 use laravel5\Http\Controllers\Controller;
-
-use Illuminate\Http\Request;
+use laravel5\Http\Requests\CreateUserRequest;
 use laravel5\User;
 
 class UsersController extends Controller {
 
+   /* protected $request;
+
+    public function __construct(Request $request)
+    {
+        $this->request=$request;
+    }
+*/
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -27,7 +35,7 @@ class UsersController extends Controller {
 	 */
 	public function create()
 	{
-		//
+		return view('admin.users.create');
 	}
 
 	/**
@@ -35,9 +43,14 @@ class UsersController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(CreateUserRequest $request)
 	{
-		//
+
+        //$this->validate($request,$rules);
+        User::create($request->all());
+        //return redirect()->route('admin.user.index');
+        //return \Redirect::route('admin.users.index');
+        return Redirect::route('admin.users.index');
 	}
 
 	/**
@@ -59,7 +72,8 @@ class UsersController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+        $user=User::findOrFail($id);
+		return view('admin.users.edit',compact('user'));
 	}
 
 	/**
@@ -68,9 +82,13 @@ class UsersController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(Requests\EditUserRequest $request,$id)
 	{
-		//
+
+        $user=User::find($id);
+        $user->fill($request->all());
+       $user->save();
+        return Redirect::back();
 	}
 
 	/**
@@ -81,7 +99,10 @@ class UsersController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		User::destroy($id);
+
+        Session::flash('message','el registro fue eliminado');
+        return Redirect::route('admin.users.index');
 	}
 
 }

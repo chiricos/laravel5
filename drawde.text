@@ -9,6 +9,7 @@ composer dump-autoload   /* permite cargar las cases que se han creado recientem
 php artisan app:name Cms  /* cambia el nombre del namespace de app a cms esto sirve para hacer el modelo de negocio */
 php artisan make:model "nombredelmodelo o tabla" User
 php artisan rotue:list
+php artisan make:request CreateUserRequest
 
 
 FLUENT
@@ -36,3 +37,6 @@ http://laravelcollective.com/docs/5.0/html
 "require": {
     "laravelcollective/html": "~5.0"
 }
+
+
+lenguaje = https://github.com/caouecs/Laravel-lang
