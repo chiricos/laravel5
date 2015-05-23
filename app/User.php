@@ -50,4 +50,29 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     }
 
+    public function scopeName($query,$name)
+    {
+        if(!empty($name))
+        {
+            //return $query->where('first_name',$name);
+            return $query->where(\DB::raw("CONCAT(first_name, ' ',last_name)"),"LIKE","%$name%");
+        }
+
+    }
+
+    public function scopeType($query,$type)
+    {
+        $types=config('options.types');
+        if($type != "" && isset($types[$type]))
+        {
+            return $query->where('type',$type);
+        }
+
+    }
+
+    public function isAdmin()
+    {
+        return $this->type === 'admin';
+    }
+
 }

@@ -15,7 +15,7 @@ class UserTableSeeder extends Seeder{
                 'last_name'     =>  $faker->lastName,
                 'email'         =>  $faker->unique()->email,
                 'password'      =>  \Hash::make('123456'),
-                'type'          =>  'user'
+                'type'          =>  $faker->randomElement(['super','admin','user'])
             ));
 
             \DB::table('user_profiles')->insert(array(

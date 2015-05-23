@@ -10,6 +10,7 @@ php artisan app:name Cms  /* cambia el nombre del namespace de app a cms esto si
 php artisan make:model "nombredelmodelo o tabla" User
 php artisan rotue:list
 php artisan make:request CreateUserRequest
+php artisan make:middleware
 
 
 FLUENT

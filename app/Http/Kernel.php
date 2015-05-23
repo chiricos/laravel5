@@ -27,6 +27,7 @@ class Kernel extends HttpKernel {
 		'auth' => 'laravel5\Http\Middleware\Authenticate',
 		'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
 		'guest' => 'laravel5\Http\Middleware\RedirectIfAuthenticated',
+		'admin' => 'laravel5\Http\Middleware\IsAdmin',
 	];
 
 }

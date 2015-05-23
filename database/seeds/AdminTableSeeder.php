@@ -12,7 +12,7 @@ class AdminTableSeeder extends Seeder {
             'last_name'     =>  'diaz',
             'email'         =>  'edwarddiaz92@gmail.com',
             'password'      =>  \Hash::make('123456'),
-            'type'          =>  'admin'
+            'type'          =>  'super'
         ));
         \DB::table('user_profiles')->insert(array(
             'user_id'       =>  $id,

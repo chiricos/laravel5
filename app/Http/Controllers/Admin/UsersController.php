@@ -2,28 +2,30 @@
 
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
-use laravel5\Http\Requests;
 use laravel5\Http\Controllers\Controller;
 use laravel5\Http\Requests\CreateUserRequest;
+use laravel5\Http\Requests\EditUserRequest;
 use laravel5\User;
+use Illuminate\Http\Request;
 
 class UsersController extends Controller {
 
-   /* protected $request;
+   protected $request;
 
     public function __construct(Request $request)
     {
+        $this->middleware('auth');
         $this->request=$request;
     }
-*/
+
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index(Request $request)
 	{
-		$users=User::paginate(15);
+		$users=User::name($request->get('name'))->type($request->get('type'))->paginate(15);
         return view('admin.users.index',compact('users'));
         dd($users);
 	}
@@ -76,13 +78,14 @@ class UsersController extends Controller {
 		return view('admin.users.edit',compact('user'));
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update(Requests\EditUserRequest $request,$id)
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param EditUserRequest $request
+     * @param  int $id
+     * @return Response
+     */
+	public function update(EditUserRequest $request,$id)
 	{
 
         $user=User::find($id);
@@ -91,18 +94,31 @@ class UsersController extends Controller {
         return Redirect::back();
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int $id
+     * @param Request|Request $request
+     * @return Response
+     */
+	public function destroy($id, \Illuminate\Http\Request $request)
 	{
-		User::destroy($id);
+        $user=User::find($id);
+        $user->delete();
+        $message=$user->full_name. 'fue eliminado de nuestros registros';
+        if($request->ajax())
+        {
+            return response()->json([
+                'id'         => $user->id,
+                'message'    => $message
+            ]);
+        }
 
-        Session::flash('message','el registro fue eliminado');
+
+        Session::flash('message',$message);
         return Redirect::route('admin.users.index');
 	}
+
+
 
 }

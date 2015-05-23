@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration {
 			$table->string('email')->unique();
 			$table->string('password', 60);
 			$table->boolean('active')->default(true);
-            $table->enum('type',['admin','user']);
+            $table->enum('type',['super','admin','user']);
 			$table->rememberToken();
 			$table->timestamps();
 		});
